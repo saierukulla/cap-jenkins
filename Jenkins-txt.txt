@@ -1,0 +1,62 @@
+MAVEN_HOME=/opt/apache-maven-3.6.3
+JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH
+
+
+Continous Integration:
+
+Git to all the below steps...
+
+compile
+codereview
+unittesting
+codecoverage
+package
+
+these above all the steps means build....which will give us the artificats called war,ear,jar,exe
+we use maven as build tool to perform all these steps using jenkins.
+
+delevery means deployed upto production,but not deployed in production.
+
+Continuous Delivery:
+
+Continuous Deployment:
+
+****If we comiple the code it will create file called "target" in the path /var/lib/jenkins/workspace/compile/target
+under target we will have classes, maven-status.
+
+compile: it will comiple code, when ever there is anychange in the code in github repository, jenkis pull the code from
+repository and comiple the code.
+
+codereview: these will be used to identify if there are any issues in the code like, missing methods, unused methods, 
+unfinished methods checks the coding standards.
+
+Unit test: these will check every unit of our code or each and every unit of our source code. if we have 1000 lines of
+code, it will check all the lines of code.
+
+CodeCoverage or Metric Check: these gives how much percentage of code has been tested as part of unit test. 
+since the percentage of test is 25%, we need to inform the developer with the coverage status.
+
+
+
+
+=====================================================================================================================
+
+Jenkins ( CI )
+
+CI ( continuous Integration )
+
+Jenkins Job      :  build lifecycle(build)     : maven goal           : post build action 
+
+job1-compile	    compile                    : compile              : NA
+
+job2-codereview	 :  codereview                 : -P metrics pmd:pmd   : **/pmd.xml ( publish pmd analysis results )
+
+job3-unittest    :	unit test                  : test                 : target/surefire-reports/*.xml
+
+job4-metriccheck :	metric check               : cobertura:cobertura -Dcobertura.report.format=xml  : target/site/cobertura/coverage.xml ( publish cobertura coverage report )
+
+job5-package     :  package                    : package               : NA
+
+
+
